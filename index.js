@@ -1,32 +1,38 @@
+#!/usr/bin/env node
+const readline = require("readline");
+const colour = require("colour");
 const path = require("path");
-const {
-  jsObfuscator,
-  htmlObfuscator,
-  cssObfuscator,
-} = require("./obfuscators");
+const execInputCommand = require("./src/execInputCommand");
 
 const input = process.argv;
 const dirFrom = process.env.INIT_CWD;
-const isDirTo = input[input.length - 1].includes("*folder=");
+const isDirTo = input[input.length - 1].includes("*dir=");
 
-let dirTo = ".";
+let dirTo = "";
+
+const nameOfDirFrom = path.basename(dirFrom);
+
 if (isDirTo) {
-  dirTo = input.pop().split("=")[1];
+  const dir = input.pop().split("=")[1];
+  dir === "." ? (dirTo = nameOfDirFrom) : (dirTo = dir);
+} else {
+  throw Error("---> Please specify a directory for obfuscated files".red);
 }
 
-for (let i = 2; i < input.length; i++) {
-  const fileName = input[i];
-  chooseCommand(fileName);
-}
+const nameOfDirTo = path.basename(dirTo);
+const nameOfLaunchDir = path.basename(dirFrom);
 
-function chooseCommand(fileName) {
-  const pathToFile = path.join(dirFrom, fileName);
-  const ext = fileName.split(".")[1];
-  if (ext === "js") {
-    jsObfuscator(pathToFile, dirTo, fileName);
-  } else if (ext === "html") {
-    htmlObfuscator(pathToFile, dirTo, fileName);
-  } else if (ext === "css") {
-    cssObfuscator(pathToFile, dirTo, fileName);
-  }
+console.log("Start obfuscation...".yellow);
+if (dirTo === nameOfDirFrom) {
+  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+  rl.question("You are going to overwrite the original files. Continue? (y/n) ", (answer) => {
+    if (answer.toLowerCase() === "y") {
+      execInputCommand(nameOfLaunchDir, nameOfDirFrom, nameOfDirTo, input);
+    } else {
+      console.log("Operation canceled".yellow);
+    }
+    rl.close();
+  });
+} else {
+  execInputCommand(nameOfLaunchDir, nameOfDirFrom, nameOfDirTo, input);
 }

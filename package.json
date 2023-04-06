@@ -1,25 +1,51 @@
 {
-  "name": "js-html-css-obfuscator",
-  "version": "1.0.0",
-  "description": "",
+  "name": "obfor",
+  "version": "1.0.1",
+  "description": "An npm package that combines js, html, css obfuscators",
   "main": "index.js",
+  "bin": {
+    "obfor": "index.js"
+  },
   "dependencies": {
+    "javascript-obfuscator": "^4.0.2",
     "clean-css": "^5.3.2",
     "html-obfuscator": "^1.0.2",
-    "javascript-obfuscator": "^4.0.2",
-    "minify": "^9.2.0"
+    "fs-extra": "^11.1.1",
+    "colour": "^0.7.1"
   },
   "scripts": {
-    "obfuscator": "node index.js"
+    "obfor": "node index.js"
   },
+  "keywords": [
+    "obfuscator",
+    "obfuscation",
+    "uglifier",
+    "uglify",
+    "code protection",
+    "compressor",
+    "compress",
+    "javascript",
+    "js",
+    "html",
+    "css",
+    "min",
+    "jsmin",
+    "htmlmin",
+    "cssmin",
+    "minification",
+    "minifier",
+    "minify",
+    "cli",
+    "simple"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/StepanMogilyov/js-html-css-obfuscator.git"
+    "url": "git+https://github.com/StepanMogilyov/obfor.git"
   },
-  "author": "",
+  "author": "Stepan Mogilyov",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/StepanMogilyov/js-html-css-obfuscator/issues"
+    "url": "https://github.com/StepanMogilyov/obfor/issues"
   },
-  "homepage": "https://github.com/StepanMogilyov/js-html-css-obfuscator#readme"
+  "homepage": "https://github.com/StepanMogilyov/obfor#readme"
 }
